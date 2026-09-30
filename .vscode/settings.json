@@ -1,0 +1,8 @@
+{
+    "window.zoomLevel": 0.2,
+    "editor.fontSize": 16,
+    "workbench.colorTheme": "Noctis Obscuro",
+    "workbench.iconTheme": "vscode-icons",
+    "liveServer.settings.port": 5501,
+
+}
