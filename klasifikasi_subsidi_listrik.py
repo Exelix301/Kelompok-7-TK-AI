@@ -57,20 +57,26 @@ X_test_scaled = scaler.transform(X_test)
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train_scaled, y_train)
 
-# HeatMap Corelation
-corr = df[features].corr()
-plt.figure(figsize=(10, 8))
-sns.heatmap(
-    corr, 
-    annot=True,          # tampilkan angka korelasi
-    cmap='coolwarm',     # warna merah-biru
-    fmt='.2f',           # 2 angka di belakang koma
-    linewidths=0.5,
-    square=True
-)
-plt.title("Heatmap Corelation", fontsize=14)
+# 7. Feature Importance
+feature_names = X.columns
+importances = model.feature_importances_
+
+feature_importance_df = pd.DataFrame({
+    'Fitur': feature_names,
+    'Importance': importances
+}).sort_values(by='Importance', ascending=False)
+
+print("\n========== FEATURE IMPORTANCE ==========")
+print(feature_importance_df)
+
+plt.figure(figsize=(8, 5))
+sns.barplot(x='Importance', y='Fitur', data=feature_importance_df, palette='viridis')
+plt.title("Feature Importance - Random Forest")
+plt.xlabel("Tingkat Kepentingan")
+plt.ylabel("Fitur")
 plt.tight_layout()
 plt.show()
+
 
 # 8. Prediksi & Evaluasi
 y_pred = model.predict(X_test_scaled)
