@@ -44,18 +44,18 @@ X = df[features]
 y = df['kelayakan']
 
 # 4. Train-Test Split
-X_train, X_test, y_train, y_test = train_test_split(
+x_train_fitur, X_test_fitur, y_train_label, y_test_label = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
 # 5. Scaling
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_train_normalisasi = scaler.fit_transform(x_train_fitur)
+X_test_normalisasi = scaler.transform(X_test_fitur)
 
 # 6. Training
 model = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(X_train_scaled, y_train)
+model.fit(X_train_normalisasi, y_train_label)
 
 # 7. Feature Importance
 feature_names = X.columns
@@ -79,15 +79,15 @@ plt.show()
 
 
 # 8. Prediksi & Evaluasi
-y_pred = model.predict(X_test_scaled)
+y_pred = model.predict(X_test_normalisasi)
 
 print("\n========== HASIL EVALUASI ==========")
-print("Akurasi:", accuracy_score(y_test, y_pred))
+print("Akurasi:", accuracy_score(y_test_label, y_pred))
 print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
+print(classification_report(y_test_label, y_pred))
 
 print("\nConfusion Matrix:")
-cm = confusion_matrix(y_test, y_pred)
+cm = confusion_matrix(y_test_label, y_pred)
 print(cm)
 
 plt.figure(figsize=(6,4))
