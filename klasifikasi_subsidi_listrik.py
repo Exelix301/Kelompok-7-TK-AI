@@ -96,3 +96,23 @@ plt.title("Confusion Matrix")
 plt.xlabel("Prediksi")
 plt.ylabel("Aktual")
 plt.show()
+
+# 9. INFERENSI (PREDIKSI DATA RUMAH TANGGA BARU)
+
+# Input Data Rumah Tangga Baru
+new_data = pd.DataFrame([[2, 36, 0, 1, 0, 3, 1, 5]], columns=features)
+
+# Standardisasi data baru
+new_data_scaled = scaler.transform(new_data)
+
+# Melakukan Prediksi dan Menghitung Probabilitas
+prediction = model.predict(new_data_scaled)
+probability = model.predict_proba(new_data_scaled)
+
+# Menampilkan Hasil Prediksi
+label_mapping = {0: "Tidak Layak", 1: "Layak"}
+hasil_prediksi = label_mapping[prediction[0]]
+
+print("\n========== HASIL PREDIKSI DATA BARU ==========")
+print(f"Status Kelayakan : {hasil_prediksi}")
+print(f"Probabilitas     : Tidak Layak = {probability[0][0]*100:.1f}%, Layak = {probability[0][1]*100:.1f}%")
