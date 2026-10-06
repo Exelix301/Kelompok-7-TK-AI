@@ -8,7 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # 1. Load Dataset
-df = pd.read_csv("Household energy bill data.csv")  # Sesuaikan nama file
+df = pd.read_csv("Household energy bill data.csv")  
 
 print("Shape data:", df.shape)
 print(df.head())
@@ -43,7 +43,7 @@ features = [
 X = df[features]
 y = df['kelayakan']
 
-# 4. Train-Test Split
+# 4. Membagi data training dan testing
 x_train_fitur, x_test_fitur, y_train_label, y_test_label = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
@@ -57,7 +57,7 @@ X_test_normalisasi = scaler.transform(x_test_fitur)
 model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train_normalisasi, y_train_label)
 
-# 7. Feature Importance
+# 7. Feature ImportanceS
 feature_names = X.columns
 importances = model.feature_importances_
 
