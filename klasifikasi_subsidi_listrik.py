@@ -43,6 +43,24 @@ features = [
 X = df[features]
 y = df['kelayakan']
 
+# === 3.5 Heatmap Correlation ===
+# Menggabungkan fitur dan variabel target untuk menghitung matriks korelasi
+correlation_matrix = df[features + ['kelayakan']].corr()
+
+plt.figure(figsize=(10, 8))
+sns.heatmap(
+    correlation_matrix, 
+    annot=True,        # Menampilkan angka nilai korelasi pada setiap sel
+    fmt='.2f',         # Membatasi 2 angka di belakang koma
+    cmap='coolwarm',   # Gradasi warna (merah = positif kuat, biru = negatif kuat)
+    linewidths=0.5,    # Memberi garis pemisah antar kotak
+    vmin=-1, vmax=1    # Menetapkan batas rentang korelasi (-1 sampai 1)
+)
+plt.title("Heatmap Korelasi Fitur & Kelayakan Subsidi", fontsize=12)
+plt.tight_layout()
+plt.show()
+
+
 # 4. Membagi data training dan testing
 x_train_fitur, x_test_fitur, y_train_label, y_test_label = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
